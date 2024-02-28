@@ -2,7 +2,7 @@ import uploadImage from '../images/uploadimage.png'
 import { useState } from "react";
 
 
-export const NewForm = ({ handler}) => {
+export const NewForm = ({ handler, handleToggleForm }) => {
     const [formBeerState, setFormBeerState] = useState({
         beerName: '',
         alcoholGrade: '',
@@ -36,17 +36,49 @@ export const NewForm = ({ handler}) => {
     const onBeerSumbit = (event) => {
         event.preventDefault();
 
+        if (!formBeerState.image) {
+            alert('Please upload an image');
+            return;
+        }
+
         //comprobar si se ha subido imagen
         //Comprobar si se ha seleccionado tipo de cerveza
-        /*if (beerName.trim().length <= 1) return;
-        if (alcoholGrade.trim().length <= 1) return;
-        if (isNaN(price.trim())) {
+        if (beerName.trim().length <= 0) {
 
-            alert('Error el precio no es un numero')
+            alert('BeerName is rquired')
 
             return;
         }
-        if (importartion.trim().length <= 1) return;*/
+        if (alcoholGrade.trim().length <= 0) {
+
+            alert('Alcohol grade is required')
+
+            return;
+        }
+        if (isNaN(alcoholGrade.trim())){
+            alert('Alcohol grade must be a number')
+
+            return;
+        }
+        if (price.trim().length <= 0) {
+
+            alert('Price is required')
+
+            return;
+        }
+       
+        if (isNaN(price.trim())) {
+
+            alert('Price must be a number')
+
+            return;
+        }
+        if (importation.trim().length <= 0) {
+
+            alert('Importation is required')
+
+            return;
+        }
 
 
 
@@ -64,6 +96,11 @@ export const NewForm = ({ handler}) => {
         })
 
     }
+
+    const handleGoBack = () => {
+        handleToggleForm(); 
+    };
+
 
 
     return (
@@ -88,8 +125,10 @@ export const NewForm = ({ handler}) => {
                 <input type="text" name="price" placeholder="Precio" className="form-control m-2" value={price} onChange={onInputBeerChange} />
                 <input type="text" name="importation" placeholder="Importación" className="form-control m-2" value={importation} onChange={onInputBeerChange} />
                 <textarea className="form-control m-2" id="description" rows="6" placeholder='Descripcion del producto' name="description" value={description} onChange={onInputBeerChange} />
-                <button type="submit" className="btn btn-primary m-2">Añadir nuevo producto</button>
-            
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <button type="submit" className="btn btn-primary m-2 rounded-pill">Añadir nuevo producto</button>
+                <button className="btn btn-secondary m-2 rounded-pill"  onClick={handleGoBack}>Volver inicio</button>
+                </div>
             </form>
            
         </div>

@@ -1,13 +1,7 @@
 
 import { useEffect, useState } from "react";
-import { BeerService,calculateTotal, impMyBeer } from "./services/BeerService"
-import { BeerView, MyBeerView } from "./components/BeerView";
-import { ImportationView } from "./components/ImportationView";
-import { CompanyView } from "./components/CompanyView";
-import { Tipos } from "./components/TiposView";
-import { TableIngredientsView } from "./components/TableIngredientsView";
+import {impMyBeer } from "./services/BeerService"
 import { TotalView } from "./components/TotalView";
-import { FormIngView } from "./components/FormIngView";
 import { BeerTable1 } from "./components/BeerTable1";
 import { NewForm } from "./components/NewForm1";
 
@@ -34,32 +28,23 @@ const myBeerInitial={
 }
 export const BeerApp = () => {
 
-    const [total, setTotal]= useState(0)
-    const [counter, setCounter] = useState(5)
+   // const [total, setTotal]= useState(0)
     const [myCounter, setMyCounter] = useState(5)
     const [beer, setBeer]= useState(beerInitial);
     const [myBeer, setMyBeer] = useState(myBeerInitial)
-    const [ingredients, setIngredientes] = useState([])
     const [beerTypes, setBeerTypes] = useState([])
-    const [activeForm, setActiveForm] = useState([true])
     const [showForm, setShowForm] = useState(false);
 
     const { id, name, price: ingPrice, type, importation,
         company: { name: nameComp, fiscalname },
     } = beer
     
-    useEffect(()=>{
+    /*useEffect(()=>{
         console.log('eel formulario cambio')
         setTotal(calculateTotal(ingredients))
 
-    }, [ingredients])
+    }, [ingredients])*/
 
-    useEffect(() =>{
-        const data = BeerService();
-        setBeer(data)
-        setIngredientes(data.ingredients)
-
-    }, []) 
 
     useEffect(()=>{
         const myData= impMyBeer();
@@ -68,19 +53,6 @@ export const BeerApp = () => {
 
     },[])
 
-    const handlerAddIngs = ({product,price,measure,quantity})=>{
-
-        setIngredientes([...ingredients, {
-            id: counter,
-            product: product.trim(),
-            price: +price.trim(),
-            measure: measure.trim(),
-            quantity: +quantity.trim()
-        }]);
-
-        setCounter(counter + 1);
-
-    }
     const handlerAddBeerTypes = ({beerName,alcoholGrade,type,price,importation,description,image})=>{
 
         const imageUrl = URL.createObjectURL(image);
@@ -102,10 +74,6 @@ export const BeerApp = () => {
 
     }
 
-    const handlerDeleteItem=(id)=>{
-        setIngredientes(ingredients.filter(ing=>ing.id!==id))
-
-    }
 
     const handlerDeleteBeerTypes=(id)=>{
         setBeerTypes(beerTypes.filter(beer=>beer.id!==id))
@@ -125,13 +93,15 @@ export const BeerApp = () => {
                 </div>
                 <div className="card-body">
                     {showForm ? (
-                        <NewForm handler={handlerAddBeerTypes} activeform={showForm} />
+                        <NewForm handler={handlerAddBeerTypes}  handleToggleForm={handleToggleForm} />
                     ) : (
                         <>
                             <BeerTable1 beerTypes={beerTypes} handlerDeleteBeerTypes={handlerDeleteBeerTypes} />
-                            <button className="btn btn-secondary mb-3" onClick={handleToggleForm}>
+                            <div className="d-grid gap-2">
+                            <button className="btn btn-secondary mb-3 btn-sm" onClick={handleToggleForm}>
                                 Agregar Item
                             </button>
+                            </div>
                         </>
                     )}
                 </div>
@@ -139,9 +109,3 @@ export const BeerApp = () => {
         </div>
     );
 }
-
-                    /*<TableIngredientsView ingredients={ingredients} handlerDeleteItem={handlerDeleteItem} />
-                    <TotalView total={total} />
-                    <button className="btn btn-secondary"
-                    onClick={onActiveFrom}>  {!activeForm? 'Agregar Item': 'Ocultar form'} </button>
-                    {!activeForm?'': <FormIngView handler={handlerAddIngs} />}*/

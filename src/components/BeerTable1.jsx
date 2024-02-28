@@ -43,3 +43,7 @@ export const BeerTable1=({beerTypes,handlerDeleteBeerTypes })=>{
     
 
 }
+
+BeerTable1.propTypes ={
+    beerTypes: PropTypes.array.isRequired
+}

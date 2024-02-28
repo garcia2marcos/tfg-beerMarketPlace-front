@@ -1,7 +1,7 @@
-import { beer } from "../data/beer"
+
 import {myBeer} from "../data/myBeer"
 
-export const BeerService=()=>{
+/*export const BeerService=()=>{
 
    const total = calculateTotal(beer.ingredients)
     
@@ -13,7 +13,7 @@ export const calculateTotal =(ingredients=[])=>{
     return ingredients
         .map(ing=> ing.price* ing.quantity)
         .reduce((accumulator, currentValue)=>accumulator+currentValue,0)
-}
+}*/
 
 export const impMyBeer=()=>{
 

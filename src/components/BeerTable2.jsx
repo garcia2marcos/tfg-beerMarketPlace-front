@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 export const BeerTable2 = ({ id, beerName, alcoholGrade, type, price, importation, description, image, handlerDeleteBeerTypes }) => {
 
     return (
@@ -17,4 +19,13 @@ export const BeerTable2 = ({ id, beerName, alcoholGrade, type, price, importatio
             </div>
         </>
     )
+}
+
+BeerTable2.propTypes={
+    beerName: PropTypes.string.isRequired,
+    alcoholGrade: PropTypes.number.isRequired,
+    price: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired,
+    importation: PropTypes.string.isRequired
+    
 }
