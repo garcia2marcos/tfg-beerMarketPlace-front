@@ -6,8 +6,8 @@ export const BeerTable1=({beerTypes,handlerDeleteBeerTypes })=>{
     let cardGroups = []; // Array para almacenar los grupos de tarjetas
 
     // Agrupar las tarjetas en grupos de cuatro
-    for (let i = 0; i < beerTypes.length; i += 4) {
-        cardGroups.push(beerTypes.slice(i, i + 4));
+    for (let i = 0; i < beerTypes.length; i += 3) {
+        cardGroups.push(beerTypes.slice(i, i + 3));
     }
 
     return (

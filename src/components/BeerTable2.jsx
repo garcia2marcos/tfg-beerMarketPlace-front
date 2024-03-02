@@ -13,8 +13,8 @@ export const BeerTable2 = ({ id, beerName, alcoholGrade, type, price, importatio
                     <p className="card-text">Tipo de cerveza: {type}</p>
                 </div>
                 <div className="card-footer d-flex justify-content-between align-items-center border-0" >
-                        <button className="btn btn-primary mb-3 rounded-pill">Buy just for {price}€ </button>
-                        <button className="btn btn-secondary mb-3 rounded-pill" onClick={() => handlerDeleteBeerTypes(id)}>Eliminar</button>
+                        <button className="btn btn-secondary mb-3 rounded-pill">Añadir al carrito </button>
+                        <button className="btn btn-outline-secondary mb-3 rounded-pill" onClick={() => handlerDeleteBeerTypes(id)}>Eliminar</button>
                     </div>
             </div>
         </>
