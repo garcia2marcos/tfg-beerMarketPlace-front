@@ -1,22 +1,5 @@
 import PropTypes from 'prop-types';
 
-export const BeerView=({id,name,ingPrice,type})=>{
-    return (
-        <>
-          <ul className="list-group">
-                        <li className="list-group-item">Id: {id} </li>
-                        <li className="list-group-item"> name: {name} </li>
-                        <li className="list-group-item">price: {ingPrice} </li>
-                        <li className="list-group-item">type: {type} </li>
-
-                    </ul>
-        
-        </>
-
-
-    )
-}
-
 export const MyBeerView =({id, beerName,alcoholGrade,type,price,importartion,description,foto})=>{
 
     return (

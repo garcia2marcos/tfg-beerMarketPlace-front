@@ -1,8 +1,12 @@
+import {useNavigate } from 'react-router-dom';
 import uploadImage from '../images/uploadimage.png'
 import { useState } from "react";
+import '../styles/border.css'
 
 
-export const NewForm = ({ handler, handleToggleForm }) => {
+export const NewForm = ({ handler }) => {
+    const navigate = useNavigate();
+
     const [formBeerState, setFormBeerState] = useState({
         beerName: '',
         alcoholGrade: '',
@@ -41,8 +45,6 @@ export const NewForm = ({ handler, handleToggleForm }) => {
             return;
         }
 
-        //comprobar si se ha subido imagen
-        //Comprobar si se ha seleccionado tipo de cerveza
         if (beerName.trim().length <= 0) {
 
             alert('BeerName is rquired')
@@ -55,7 +57,7 @@ export const NewForm = ({ handler, handleToggleForm }) => {
 
             return;
         }
-        if (isNaN(alcoholGrade.trim())){
+        if (isNaN(alcoholGrade.trim())) {
             alert('Alcohol grade must be a number')
 
             return;
@@ -66,7 +68,7 @@ export const NewForm = ({ handler, handleToggleForm }) => {
 
             return;
         }
-       
+
         if (isNaN(price.trim())) {
 
             alert('Price must be a number')
@@ -95,22 +97,25 @@ export const NewForm = ({ handler, handleToggleForm }) => {
             image: ''
         })
 
+
+        navigate('/products')
     }
 
     const handleGoBack = () => {
-        handleToggleForm(); 
+        navigate('/products')
     };
 
 
 
     return (
+
         
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-        
-            <form className="w-50" onSubmit={onBeerSumbit}>
-            <div className="container text-center"> 
-            <h2>NEW PRODUCT</h2>
-            </div>
+
+            <form className="container w-65 text-bg-light m-2 rounded-form" onSubmit={onBeerSumbit}>
+            
+                <div className="container text-center">
+                    <h2>NEW PRODUCT</h2>
+                </div>
                 <img src={uploadImage} style={{ maxHeight: '100px', margin: 15 }} />
                 <label htmlFor="formFile" className="form-label" />
                 <input className="form-control m-2" type="file" id="formFile" onChange={onFileChange} />
@@ -126,12 +131,14 @@ export const NewForm = ({ handler, handleToggleForm }) => {
                 <input type="text" name="importation" placeholder="Importación" className="form-control m-2" value={importation} onChange={onInputBeerChange} />
                 <textarea className="form-control m-2" id="description" rows="6" placeholder='Descripcion del producto' name="description" value={description} onChange={onInputBeerChange} />
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <button type="submit" className="btn btn-primary m-2 rounded-pill">Añadir nuevo producto</button>
-                <button className="btn btn-secondary m-2 rounded-pill"  onClick={handleGoBack}>Volver inicio</button>
+                    <button type="submit" className="btn btn-primary m-2 rounded-pill" >Añadir nuevo producto</button>
+                    <button className="btn btn-secondary m-2 rounded-pill" onClick={handleGoBack}>Volver inicio</button>
+                
                 </div>
             </form>
-           
-        </div>
+
         
+
+
     )
 }

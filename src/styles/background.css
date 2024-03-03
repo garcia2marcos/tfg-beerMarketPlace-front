@@ -2,9 +2,13 @@
 
 body{
 
-    background-image: url('../images/vaso-transparente-cerveza-mesa-madera.jpg')  ;
+    background-image: url('../images/fondo1.jpg')  ;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
     color: #FFFFFF;
+}
+
+.navbar-orange {
+    background-color: #fc9b39; /* Aquí puedes ajustar el valor hexadecimal para obtener el tono de naranja que desees */
 }

@@ -1,50 +1,23 @@
 
 import { useEffect, useState } from "react";
 import {impMyBeer } from "./services/BeerService"
-import { TotalView } from "./components/TotalView";
-import { BeerTable1 } from "./components/BeerTable1";
+import { BeerRowCol } from "./components/BeerRowCol";
 import { NewForm } from "./components/NewForm1";
-
-const beerInitial={
-    id: 0,
-    name: '',
-    price: 0,
-    type: '',
-    importation: {
-        name: '',
-        province: '',
-        street: '',
-        number: 0
-    },
-    company: {
-        name: '',
-        fiscalname: 0,
-    },
-    ingredients:[ ]
-}
+import { Navigate, Route, Routes } from "react-router-dom"
+import { Navbar } from "./components/Navbar";
 
 const myBeerInitial={
     myBeer:[]
 }
 export const BeerApp = () => {
 
-   // const [total, setTotal]= useState(0)
-    const [myCounter, setMyCounter] = useState(5)
-    const [beer, setBeer]= useState(beerInitial);
+  
+    const [myCounter, setMyCounter] = useState(9)
     const [myBeer, setMyBeer] = useState(myBeerInitial)
     const [beerTypes, setBeerTypes] = useState([])
-    const [showForm, setShowForm] = useState(false);
 
-    const { id, name, price: ingPrice, type, importation,
-        company: { name: nameComp, fiscalname },
-    } = beer
+
     
-    /*useEffect(()=>{
-        console.log('eel formulario cambio')
-        setTotal(calculateTotal(ingredients))
-
-    }, [ingredients])*/
-
 
     useEffect(()=>{
         const myData= impMyBeer();
@@ -70,8 +43,6 @@ export const BeerApp = () => {
 
         setMyCounter(myCounter + 1);
 
-        setShowForm(false);
-
     }
 
 
@@ -80,32 +51,28 @@ export const BeerApp = () => {
 
     }
 
-    const handleToggleForm = () => {
-        setShowForm(!showForm);
-    };
     
 
-    return (
-        <div className="container">
-            <div className="card text-bg-light mb-3">
-                <div className="card-header">
-                    <h1>BeerMarketPlace</h1>
-                </div>
-                <div className="card-body">
-                    {showForm ? (
-                        <NewForm handler={handlerAddBeerTypes}  handleToggleForm={handleToggleForm} />
-                    ) : (
-                        <>
-                            <BeerTable1 beerTypes={beerTypes} handlerDeleteBeerTypes={handlerDeleteBeerTypes} />
-                            <div className="d-grid gap-2">
-                            <button className="btn btn-secondary mb-3 btn-sm" onClick={handleToggleForm}>
-                                Agregar Item
-                            </button>
-                            </div>
-                        </>
-                    )}
-                </div>
+    return (<>
+        <Navbar/>
+        <div className="container">    
+                <Routes>
+                
+                    <Route path="form" element={
+                        <NewForm handler={handlerAddBeerTypes} />
+                    }/>
+                            
+                    <Route path="products" element={
+                        <BeerRowCol beerTypes={beerTypes} handlerDeleteBeerTypes={handlerDeleteBeerTypes} />
+                    }/>
+                    
+
+                    <Route  path="/" element={<Navigate to={'/products'} />} />
+
+                </Routes>
             </div>
-        </div>
+        
+        </>
     );
+    
 }
