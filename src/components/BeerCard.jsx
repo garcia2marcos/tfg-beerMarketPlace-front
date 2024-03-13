@@ -1,7 +1,17 @@
 import PropTypes from 'prop-types';
 import '../styles/border.css'
+import { useNavigate } from "react-router-dom"
 
-export const BeerCard = ({ id, beerName, alcoholGrade, type, price, importation, description, image, handlerDeleteBeerTypes }) => {
+export const BeerCard = ({ id, beerName, alcoholGrade, type, price, importation, description, image, handlerDeleteBeerTypes, handlerAddProductCart }) => {
+
+    const navigate = useNavigate();
+
+    const addProduct=(product)=>{
+        console.log(product)
+        handlerAddProductCart(product)
+        navigate('/cart')
+
+    }
 
     return (
         <>
@@ -14,8 +24,9 @@ export const BeerCard = ({ id, beerName, alcoholGrade, type, price, importation,
                     <p className="card-text">Tipo de cerveza: {type}</p>
                 </div>
                 <div className="card-footer d-flex justify-content-between align-items-center border-0" >
-                        <button className="btn btn-outline-warning mb-2 rounded-pill ">Añadir al carrito </button>
+                        <button className="btn btn-outline-warning mb-2 rounded-pill " onClick={()=>addProduct({id,beerName,description,price})}>Añadir al carrito </button>
                         <button className="btn btn-outline-secondary mb-2 rounded-pill" onClick={() => handlerDeleteBeerTypes(id)}>Eliminar</button>
+                        
                     </div>
             </div>
         </>

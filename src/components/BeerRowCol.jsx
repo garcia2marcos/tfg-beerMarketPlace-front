@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { BeerCard } from './BeerCard';
 
-export const BeerRowCol=({beerTypes,handlerDeleteBeerTypes })=>{
+export const BeerRowCol=({beerTypes,handlerDeleteBeerTypes,handlerAddProductCart })=>{
 
     return (
         <>
@@ -19,7 +19,9 @@ export const BeerRowCol=({beerTypes,handlerDeleteBeerTypes })=>{
                                 description={b.description}
                                 image={b.image}
                                 alcoholGrade={b.alcoholGrade}
-                                handlerDeleteBeerTypes={handlerDeleteBeerTypes}/>
+                                handlerDeleteBeerTypes={handlerDeleteBeerTypes}
+                                handlerAddProductCart={handlerAddProductCart}/>
+                                
                         </div>
                         
                     ))}

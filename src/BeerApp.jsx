@@ -5,10 +5,14 @@ import { BeerRowCol } from "./components/BeerRowCol";
 import { NewForm } from "./components/NewForm1";
 import { Navigate, Route, Routes } from "react-router-dom"
 import { Navbar } from "./components/Navbar";
+import { useItemsCart } from "./hooks/useItemsCart";
+import { CartView } from "./components/CartView";
 
 const myBeerInitial={
     myBeer:[]
 }
+
+
 export const BeerApp = () => {
 
   
@@ -17,7 +21,7 @@ export const BeerApp = () => {
     const [beerTypes, setBeerTypes] = useState([])
 
 
-    
+    const {cartItems,handlerAddProductCart,handlerDeleteProductCart} = useItemsCart();
 
     useEffect(()=>{
         const myData= impMyBeer();
@@ -63,7 +67,11 @@ export const BeerApp = () => {
                     }/>
                             
                     <Route path="products" element={
-                        <BeerRowCol beerTypes={beerTypes} handlerDeleteBeerTypes={handlerDeleteBeerTypes} />
+                        <BeerRowCol beerTypes={beerTypes} handlerDeleteBeerTypes={handlerDeleteBeerTypes} handlerAddProductCart={handlerAddProductCart} />
+                    }/>
+
+                    <Route path="cart" element={
+                        <CartView  handler={handlerDeleteProductCart} items={cartItems}   />
                     }/>
                     
 

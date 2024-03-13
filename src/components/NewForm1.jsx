@@ -118,18 +118,18 @@ export const NewForm = ({ handler }) => {
                 </div>
                 <img src={uploadImage} style={{ maxHeight: '100px', margin: 15 }} />
                 <label htmlFor="formFile" className="form-label" />
-                <input className="form-control m-2" type="file" id="formFile" onChange={onFileChange} />
-                <input type="text" name="beerName" placeholder="Nombre de la cerveza" className="form-control m-2" value={beerName} onChange={onInputBeerChange} />
-                <select name="type" placeholder="Tipo de cerveza" className="form-control m-2" value={type} onChange={onInputBeerChange}>
+                <input className="form-control my-2" type="file" id="formFile" onChange={onFileChange} />
+                <input type="text" name="beerName" placeholder="Nombre de la cerveza" className="form-control my-2" value={beerName} onChange={onInputBeerChange} />
+                <select name="type" placeholder="Tipo de cerveza" className="form-control my-2" value={type} onChange={onInputBeerChange}>
                     <option value="Tipo de cerveza">Tipo de cerveza</option>
                     <option value="Lagger">Lagger</option>
                     <option value="Pale Ale">Pale Ale</option>
                     <option value="Ipa">Ipa</option>
                 </select>
-                <input type="text" name="alcoholGrade" placeholder="Grado de Alcohol" className="form-control m-2" value={alcoholGrade} onChange={onInputBeerChange} />
-                <input type="text" name="price" placeholder="Precio" className="form-control m-2" value={price} onChange={onInputBeerChange} />
-                <input type="text" name="importation" placeholder="Importación" className="form-control m-2" value={importation} onChange={onInputBeerChange} />
-                <textarea className="form-control m-2" id="description" rows="6" placeholder='Descripcion del producto' name="description" value={description} onChange={onInputBeerChange} />
+                <input type="text" name="alcoholGrade" placeholder="Grado de Alcohol" className="form-control my-2" value={alcoholGrade} onChange={onInputBeerChange} />
+                <input type="text" name="price" placeholder="Precio" className="form-control my-2" value={price} onChange={onInputBeerChange} />
+                <input type="text" name="importation" placeholder="Importación" className="form-control my-2" value={importation} onChange={onInputBeerChange} />
+                <textarea className="form-control my-2" id="description" rows="6" placeholder='Descripcion del producto' name="description" value={description} onChange={onInputBeerChange} />
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <button type="submit" className="btn btn-primary m-2 rounded-pill" >Añadir nuevo producto</button>
                     <button className="btn btn-secondary m-2 rounded-pill" onClick={handleGoBack}>Volver inicio</button>

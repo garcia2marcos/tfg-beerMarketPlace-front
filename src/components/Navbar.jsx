@@ -24,6 +24,10 @@ export const Navbar = () => {
                         <li className="nav-item">
                         <NavLink className={'nav-link'} to="/form">Add Product</NavLink>
                         </li>
+                        <li className="nav-item">
+                        <NavLink className={'nav-link'} to="/cart">Shopping Cart</NavLink>
+                        </li>
+                        
                         <li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Importaciones

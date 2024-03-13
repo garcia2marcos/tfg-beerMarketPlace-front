@@ -19,3 +19,9 @@ export const impMyBeer=()=>{
 
     return {...myBeer}
 }
+
+export const calculateTotal=(items)=>{
+
+    return items.reduce((accumulator, item)=> accumulator+item.product.price * item.quantity,0)
+
+}
