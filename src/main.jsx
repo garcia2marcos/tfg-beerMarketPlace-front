@@ -4,10 +4,11 @@ import { BeerApp } from './BeerApp'
 import { BrowserRouter } from 'react-router-dom'
 
 
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
-    <BeerApp />
+    <BeerApp/>
     </BrowserRouter>
   </React.StrictMode>,
 )

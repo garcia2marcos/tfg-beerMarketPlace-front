@@ -2,6 +2,7 @@ import {useNavigate } from 'react-router-dom';
 import uploadImage from '../images/uploadimage.png'
 import { useState } from "react";
 import '../styles/border.css'
+import Swal from 'sweetalert2';
 
 
 export const NewForm = ({ handler }) => {
@@ -41,13 +42,21 @@ export const NewForm = ({ handler }) => {
         event.preventDefault();
 
         if (!formBeerState.image) {
-            alert('Please upload an image');
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Please Upload an image!",
+              });
             return;
         }
 
         if (beerName.trim().length <= 0) {
 
-            alert('BeerName is rquired')
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "A Beer name is rquired!",
+              });
 
             return;
         }
@@ -63,8 +72,11 @@ export const NewForm = ({ handler }) => {
             return;
         }
         if (price.trim().length <= 0) {
-
-            alert('Price is required')
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Price is required!",
+              });
 
             return;
         }
@@ -99,6 +111,12 @@ export const NewForm = ({ handler }) => {
 
 
         navigate('/products')
+        Swal.fire({
+            title: "Beer added!",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 2000
+          });
     }
 
     const handleGoBack = () => {

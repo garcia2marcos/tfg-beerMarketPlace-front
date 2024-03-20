@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom"
-import image from  '../images/beer_931949.png'
+import image from  '../images/beershopLogo.png'
 import '../styles/border.css'
 
 export const Navbar = () => {
@@ -11,8 +11,8 @@ export const Navbar = () => {
         <nav className="navbar navbar-expand-lg navbar-orange">
             <div className="container-fluid">
                 <a className="navbar-brand" href="/">
-                <img src={image} alt="Logo" width="30" height="24" className="d-inline-block align-text-top"/>
-                    Beer Shop</a>
+                <img src={image} alt="Logo" width="40" height="40"/>
+                    </a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
@@ -26,6 +26,9 @@ export const Navbar = () => {
                         </li>
                         <li className="nav-item">
                         <NavLink className={'nav-link'} to="/cart">Shopping Cart</NavLink>
+                        </li>
+                        <li className="nav-item">
+                        <NavLink className={'nav-link'} to="/login">Login</NavLink>
                         </li>
                         
                         <li className="nav-item dropdown">
