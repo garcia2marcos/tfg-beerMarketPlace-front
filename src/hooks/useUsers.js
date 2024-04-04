@@ -7,12 +7,7 @@ import {
 } from "../reducers/usersReducer"
 import Swal from "sweetalert2"
 
-const initialUsers = [{
-    id: 1,
-    username: 'pepe',
-    password: '1234',
-    email: 'pepe@gmail.com'
-}, ]
+const initialUsers = JSON.parse(sessionStorage.getItem('form'))||[]
 const initialUserForm = {
     id: 0,
     username: '',

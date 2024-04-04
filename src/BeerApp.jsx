@@ -7,12 +7,12 @@ import { Navigate, Route, Routes } from "react-router-dom"
 import { Navbar } from "./components/Navbar";
 import { useItemsCart } from "./hooks/useItemsCart";
 import { CartView } from "./components/CartView";
-import { LoginView } from "./components/LoginView";
 import { loginReducer } from "../src/auth/pages/reducers/loginReducer"
 import { useReducer } from "react"
 import {LoginPage} from "../src/auth/pages/LoginPage"
 import Swal from "sweetalert2";
 import { loginUser } from "./auth/pages/services/AuthService";
+import { UsersPage } from "./pages/UsersPage";
 
 
 const initialLogin= JSON.parse(sessionStorage.getItem('login')) || {
@@ -143,7 +143,7 @@ export const BeerApp = () => {
                     } />
     
                     <Route path="login" element={
-                        <LoginView/>
+                        <UsersPage/>
                     } />
     
     

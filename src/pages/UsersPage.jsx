@@ -1,6 +1,5 @@
 import { useUsers } from "../hooks/useUsers"
 import { UsersList } from "../components/UserList"
-import '../styles/modal.css'
 import { UserModalForm } from "../components/UserModalForm"
 
 
@@ -33,7 +32,7 @@ export const UsersPage = () => {
             /> }
                 
             <div className="container my-4">
-                <h2>Users App</h2>
+             
                 <div className="row">
 
                     <div className="col">

@@ -1,74 +1,106 @@
+import React from 'react';
 import { useState } from "react";
 import Swal from "sweetalert2";
+import styles from "./styles/login.module.css"
+import image from '../../images/beershopLogo.png'
+import { useUsers } from '../../hooks/useUsers';
+import { LogInUserForm } from '../../components/LogInForm';
 
-const initialLoginForm={
-    username: '',
-    password: ''
+const initialLoginForm = {
+  username: '',
+  password: ''
 }
 
-export const LoginPage = ({handlerLogin}) => {
+export const LoginPage = ({ handlerLogin }) => {
 
 
-    const [loginForm, setLoginForm]= useState(initialLoginForm);
-    const {username, password} =loginForm;
+  const [loginForm, setLoginForm] = useState(initialLoginForm);
+  const { username, password } = loginForm;
+  const [visibleLogin, setVisibleLogin] = useState(true);
 
-    const onInputChange=({target})=>{
-        const{name,value}= target;
+  const onInputChange = ({ target }) => {
+    const { name, value } = target;
 
-        setLoginForm({
-            ...loginForm,
-            [name]: value
-        })
+    setLoginForm({
+      ...loginForm,
+      [name]: value
+    })
+  }
+
+  const onSubmit = () => {
+    event.preventDefault();
+
+    if (!username || !password) {
+      Swal.fire('Error de validacion', 'Username y password requeridos', 'error')
     }
 
-    const onSubmit=()=>{
-        event.preventDefault();
 
-        if(!username || !password){
-            Swal.fire('Error de validacion','Username y password requeridos','error')
-        }
+    handlerLogin({ username, password });
+    setLoginForm(initialLoginForm);
+  }
+  const {
+    users,
+    userSelected,
+    initialUserForm,
+    visibleForm,
 
+    handlerAddUser,
 
-        handlerLogin({username,password});
-        setLoginForm(initialLoginForm);
-    }
+    handlerOpenForm,
+    handlerCloseForm
+  } = useUsers();
 
-    return (
-        <div className="modal" style={{display: 'block'}}  tabIndex="-1">
-            <div className="modal-dialog">
-                <div className="modal-content">
-                    <div className="modal-header">
-                        <h5 className="modal-title">Inicio de sesion</h5>
-
-                    </div>
-                    <form onSubmit={onSubmit}>
-                        <div className="modal-body">
-                            <input 
-                                className="form-control my-3 w-75" 
-                                placeholder="Username"
-                                name="username"
-                                value={username}
-                                onChange={onInputChange}/>
-
-                            <input 
-                                className="form-control my-3 w-75" 
-                                placeholder="Password"
-                                type="password"
-                                name="password"
-                                value={password}
-                                onChange={onInputChange}/>
-
-                            
-            
+  const handlerVisibleLogin=()=>{
+    setVisibleLogin(false);
+    handlerOpenForm();
+  }
 
 
-                        </div>
-                        <div className="modal-footer">
-                            <button type="submit" className="btn btn-primary">Login</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+  return (
+    <>
+
+      {!visibleForm || <LogInUserForm
+            handlerAddUser={()=>{
+              handlerAddUser(users)
+              setVisibleLogin(true);
+            }}
+            userSelected={userSelected}
+            initialUserForm={initialUserForm}
+            handlerCloseForm={() => {
+              setVisibleLogin(true); // Mostrar el formulario de inicio de sesión cuando se cierra el formulario de registro
+              handlerCloseForm();
+            }}
+            />
+          }
+      {!visibleLogin|| <div className='d-flex justify-content-center my-4'>
+        <div className={styles.card}>
+          <img className={styles.logo} src={image} alt="Logo" />
+          <h4>Welcome!</h4>
+          <form className={styles.form} onSubmit={onSubmit}>
+
+            <input
+              placeholder="Username"
+              type="usurname"
+              name="username"
+              value={username}
+              onChange={onInputChange} />
+
+            <input
+              placeholder="Password"
+              type="password"
+              name="password"
+              value={password}
+              onChange={onInputChange} />
+            <button>Sign in</button>
+          </form>
+
+          <footer>
+            Don't have an account?
+            <a href="#" onClick={handlerVisibleLogin}> Register Now</a>
+          </footer>
         </div>
-    );
+      </div>}
+    </>
+  );
+
 }

@@ -1,6 +1,7 @@
 import { UserRow } from "./UserRow"
 
 export const UsersList =({handlerUserSelectedForm,handlerRemoveUser, users = []})=>{
+    sessionStorage.setItem('form', JSON.stringify(users))
 
     return (
         <table className="table table-hover table-stripped">
