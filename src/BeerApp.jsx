@@ -8,30 +8,31 @@ import { Navbar } from "./components/Navbar";
 import { useItemsCart } from "./hooks/useItemsCart";
 import { CartView } from "./components/CartView";
 import { LoginView } from "./components/LoginView";
+import { loginReducer } from "../src/auth/pages/reducers/loginReducer"
+import { useReducer } from "react"
+import {LoginPage} from "../src/auth/pages/LoginPage"
 import Swal from "sweetalert2";
+import { loginUser } from "./auth/pages/services/AuthService";
 
-const myBeerInitial = {
-    myBeer: []
+
+const initialLogin= JSON.parse(sessionStorage.getItem('login')) || {
+    isAuth: false,
+    user: undefined,
 }
-
-
 
 export const BeerApp = () => {
 
 
-    const [myCounter, setMyCounter] = useState(9)
-    const [myBeer, setMyBeer] = useState(myBeerInitial)
-    const [beerTypes, setBeerTypes] = useState([])
-
-
     const { cartItems, handlerAddProductCart, handlerDeleteProductCart } = useItemsCart();
+    const [beerTypes, setBeerTypes] = useState([]);
 
     useEffect(() => {
         const myData = impMyBeer();
-        setMyBeer(myData);
         setBeerTypes(myData.myBeer);
 
     }, [])
+
+    const [myCounter, setMyCounter] = useState(9)   
 
     const handlerAddBeerTypes = ({ beerName, alcoholGrade, type, price, importation, description, image }) => {
 
@@ -78,38 +79,85 @@ export const BeerApp = () => {
     }
 
 
-
-    return (<>
-        <Navbar />
-        <div className="container">
-            <Routes>
-
-                <Route path="form" element={
-                    <NewForm handler={handlerAddBeerTypes} />
-                } />
-
-                <Route path="products" element={
-                    <BeerRowCol beerTypes={beerTypes} handlerDeleteBeerTypes={handlerDeleteBeerTypes} handlerAddProductCart={handlerAddProductCart} />
-                } />
-
-                <Route path="cart" element={
-
-                    cartItems.length === 0? <div className="alert alert-warning my-4 mx-2 w-50">No hay productos en el carrito</div>:
-                    
-                    <CartView handler={handlerDeleteProductCart} items={cartItems} />
-                } />
-
-                <Route path="login" element={
-                    <LoginView/>
-                } />
+    
 
 
-                <Route path="/" element={<Navigate to={'/products'} />} />
+    const [login,dispatch] = useReducer(loginReducer, initialLogin)
+    const handlerLogin =({username,password})=>{
+        const isLogin =loginUser({username,password})
+ 
+     if(isLogin){
+ 
+         const user={username: 'magarciaga'}
+ 
+         dispatch({
+             type: 'login',
+             payload: user,
+         })  
+         sessionStorage.setItem('login', JSON.stringify({
+            isAuth: true,
+            user
+         }))  
+         Swal.fire('','Login success','success')
+     }else{
+         Swal.fire('Error','Username y password no validos','error')
+     }
+ 
+    }
 
-            </Routes>
-        </div>
+    const handlerLogOut =()=>{
 
-    </>
+        dispatch({
+            type: 'logout',
+        })
+        sessionStorage.removeItem('login')
+
+    }
+
+    
+
+
+
+    return (
+    <>
+        {login.isAuth ?
+        
+        <>
+        <Navbar handlerLogOut={handlerLogOut} login={login}/>
+            <div className="container">
+                <Routes>
+    
+                    <Route path="form" element={
+                        <NewForm handler={handlerAddBeerTypes} />
+                    } />
+    
+                    <Route path="products" element={
+                        <BeerRowCol beerTypes={beerTypes} handlerDeleteBeerTypes={handlerDeleteBeerTypes} handlerAddProductCart={handlerAddProductCart} />
+                    } />
+    
+                    <Route path="cart" element={
+    
+                        cartItems.length === 0? <div className="alert alert-warning my-4 mx-2 w-50">No hay productos en el carrito</div>:
+                        
+                        <CartView handler={handlerDeleteProductCart} items={cartItems} />
+                    } />
+    
+                    <Route path="login" element={
+                        <LoginView/>
+                    } />
+    
+    
+                    <Route path="/" element={<Navigate to={'/products'} />} />
+    
+                </Routes>
+            </div>
+            </>
+    
+        : <LoginPage handlerLogin={handlerLogin}/>
+        
+        } </>
+    
+    
     );
 
 }

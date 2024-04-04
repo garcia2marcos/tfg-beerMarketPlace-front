@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom"
 import image from  '../images/beershopLogo.png'
 import '../styles/border.css'
 
-export const Navbar = () => {
+export const Navbar = ({login,handlerLogOut}) => {
 
 
 
@@ -44,6 +44,16 @@ export const Navbar = () => {
                             </ul>
                         </li>
                     </ul>
+                </div>
+                <div className="collapse navbar-collapse justify-content-end" id="navbarNav"> 
+                    <span className="nav-item nav-link text-primary mx-3">{login.user?.username}</span>
+                    <button onClick={handlerLogOut}
+                    className="btn btn-outline-success"> 
+                    Logout
+
+                    </button>
+
+
                 </div>
             </div>
         </nav>
