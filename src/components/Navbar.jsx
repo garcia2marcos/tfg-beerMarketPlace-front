@@ -33,14 +33,14 @@ export const Navbar = ({login,handlerLogOut}) => {
                         
                         <li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Importaciones
+                                Importations
                             </a>
                             <ul className="dropdown-menu navbar-orange">
-                                <li><a className="dropdown-item text-dark" href="/">España</a></li>
-                                <li><a className="dropdown-item text-dark" href="/">Belgica</a></li>
-                                <li><a className="dropdown-item text-dark" href="">Alemania</a></li>
+                                <li><a className="dropdown-item text-dark" href="/">Spain</a></li>
+                                <li><a className="dropdown-item text-dark" href="/">Belgium</a></li>
+                                <li><a className="dropdown-item text-dark" href="">Germany</a></li>
                                 <li><hr className="dropdown-divider text-dark"/></li>
-                                <li><a className="dropdown-item text-dark" href="#">Resto del mundo</a></li>
+                                <li><a className="dropdown-item text-dark" href="#">Worlwide</a></li>
                             </ul>
                         </li>
                     </ul>

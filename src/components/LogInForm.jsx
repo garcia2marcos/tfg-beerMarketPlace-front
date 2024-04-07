@@ -53,7 +53,7 @@ export const LogInUserForm = ({ userSelected, handlerAddUser, initialUserForm, h
         <div className='d-flex justify-content-center my-4'>
             <div className={styles.card}>
             <img className={styles.logo} src={image} alt="Logo" />
-          <h4>Register now</h4>
+          <h4>Register now!</h4>
                 <form className={styles.form} onSubmit={onSubmit}>
                     <input
                         placeholder="Username"

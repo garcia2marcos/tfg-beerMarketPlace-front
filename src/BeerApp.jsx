@@ -25,6 +25,7 @@ export const BeerApp = () => {
 
     const { cartItems, handlerAddProductCart, handlerDeleteProductCart } = useItemsCart();
     const [beerTypes, setBeerTypes] = useState([]);
+    
 
     useEffect(() => {
         const myData = impMyBeer();
@@ -34,7 +35,7 @@ export const BeerApp = () => {
 
     const [myCounter, setMyCounter] = useState(9)   
 
-    const handlerAddBeerTypes = ({ beerName, alcoholGrade, type, price, importation, description, image }) => {
+    const handlerAddBeerTypes = ({ beerName, alcoholGrade, type, price, importation, description, image,quality}) => {
 
         const imageUrl = URL.createObjectURL(image);
 
@@ -44,14 +45,15 @@ export const BeerApp = () => {
             alcoholGrade: +alcoholGrade.trim(),
             type: type.trim(),
             price: +price.trim(),
+            quality: +quality.trim(),
             importation: importation.trim(),
             description: description.trim(),
             image: imageUrl,
+
         }]);
 
         setMyCounter(myCounter + 1);
-
-       
+    
 
     }
 
@@ -88,7 +90,7 @@ export const BeerApp = () => {
  
      if(isLogin){
  
-         const user={username: 'magarciaga'}
+         const user={username}
  
          dispatch({
              type: 'login',
@@ -98,7 +100,13 @@ export const BeerApp = () => {
             isAuth: true,
             user
          }))  
-         Swal.fire('','Login success','success')
+         Swal.fire({
+            position: "top-center",
+            icon: "success",
+            title: "Successfully logged in",
+            showConfirmButton: false,
+            timer: 700
+          });
      }else{
          Swal.fire('Error','Username y password no validos','error')
      }

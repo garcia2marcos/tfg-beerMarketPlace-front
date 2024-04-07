@@ -13,12 +13,13 @@ export const NewForm = ({ handler }) => {
         alcoholGrade: '',
         type: '',
         price: '',
+        quality:'',
         importation: '',
         description: '',
         image: ''
     })
 
-    const { beerName, alcoholGrade, type, price, importation, description, image } = formBeerState
+    const { beerName, alcoholGrade, type, price,quality,importation, description, image } = formBeerState
 
     const onInputBeerChange = ({ target: { name, value } }) => {
 
@@ -104,6 +105,7 @@ export const NewForm = ({ handler }) => {
             alcoholGrade: '',
             type: '',
             price: '',
+            quality:'',
             importation: '',
             description: '',
             image: ''
@@ -146,6 +148,7 @@ export const NewForm = ({ handler }) => {
                 </select>
                 <input type="text" name="alcoholGrade" placeholder="Grado de Alcohol" className="form-control my-2" value={alcoholGrade} onChange={onInputBeerChange} />
                 <input type="text" name="price" placeholder="Precio" className="form-control my-2" value={price} onChange={onInputBeerChange} />
+                <input type="text" name="quality" placeholder="Quality" className="form-control my-2" value={quality} onChange={onInputBeerChange} />
                 <input type="text" name="importation" placeholder="Importación" className="form-control my-2" value={importation} onChange={onInputBeerChange} />
                 <textarea className="form-control my-2" id="description" rows="6" placeholder='Descripcion del producto' name="description" value={description} onChange={onInputBeerChange} />
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>

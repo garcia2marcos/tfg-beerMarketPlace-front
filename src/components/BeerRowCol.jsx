@@ -14,13 +14,15 @@ export const BeerRowCol=({beerTypes,handlerDeleteBeerTypes,handlerAddProductCart
                                 id={b.id}
                                 beerName={b.beerName}
                                 price={b.price}
+                                quality={b.quality}
                                 type={b.type}
                                 importation={b.importation}
                                 description={b.description}
                                 image={b.image}
                                 alcoholGrade={b.alcoholGrade}
                                 handlerDeleteBeerTypes={handlerDeleteBeerTypes}
-                                handlerAddProductCart={handlerAddProductCart}/>
+                                handlerAddProductCart={handlerAddProductCart}
+                                />
                                 
                         </div>
                         

@@ -10,13 +10,19 @@ export const  useItemsCart = ()=>{
     const handlerAddProductCart = (product) => {
 
         const hasItem = cartItems.find((i) => i.product.id === product.id);
+
+        console.log(product.quantity)
+
+       
         if (hasItem) {
           
             setCartItems(
                 cartItems.map((i) => {
                     if (i.product.id === product.id) {
-                        i.quantity = i.quantity + 1;
+                        i.quantity = i.quantity + i.product.quantity;
                     }
+
+                    console.log(i.product.quantity)
 
                     return i;
                 }),
@@ -29,7 +35,7 @@ export const  useItemsCart = ()=>{
                 ...cartItems,
                 {
                     product,
-                    quantity: 1, //uno por defecto
+                    quantity: product.quantity, //uno por defecto
 
                 }
 
