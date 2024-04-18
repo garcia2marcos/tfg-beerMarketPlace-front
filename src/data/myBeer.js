@@ -76,7 +76,7 @@ export const myBeer ={
             type: 'rubia lagger',
             price:  5.2,
             quality: 2,
-            importation: 'España',
+            importation: 'Belgica',
             description: 'Cerveza rubia especial Sin Gluten botella 33 cl',
             image: es6
             

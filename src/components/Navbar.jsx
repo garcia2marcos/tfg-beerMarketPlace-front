@@ -36,11 +36,11 @@ export const Navbar = ({login,handlerLogOut}) => {
                                 Importations
                             </a>
                             <ul className="dropdown-menu navbar-orange">
-                                <li><a className="dropdown-item text-dark" href="/">Spain</a></li>
-                                <li><a className="dropdown-item text-dark" href="/">Belgium</a></li>
-                                <li><a className="dropdown-item text-dark" href="">Germany</a></li>
+                                <li><a className="dropdown-item text-dark" href="/esp">Spain</a></li>
+                                <li><a className="dropdown-item text-dark" href="/belg">Belgium</a></li>
+                                <li><a className="dropdown-item text-dark" href="/ger">Germany</a></li>
                                 <li><hr className="dropdown-divider text-dark"/></li>
-                                <li><a className="dropdown-item text-dark" href="#">Worlwide</a></li>
+                                <li><a className="dropdown-item text-dark" href="/rest">Worlwide</a></li>
                             </ul>
                         </li>
                     </ul>

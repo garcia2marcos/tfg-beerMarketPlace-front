@@ -9,7 +9,7 @@ export const BeerCard = ({ id, beerName, alcoholGrade, type, price,quality, impo
     const navigate = useNavigate();
 
     const [quantity, setQuantity] = useState(1)
-    const [rating, setRating] = useState(0);
+    const [rating, setRating] = useState(quality);
     const handleStarClick = (quality) => {
         // Manejar el clic en una estrella
         if (quality === 4) {

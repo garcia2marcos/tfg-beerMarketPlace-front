@@ -13,6 +13,10 @@ import {LoginPage} from "../src/auth/pages/LoginPage"
 import Swal from "sweetalert2";
 import { loginUser } from "./auth/pages/services/AuthService";
 import { UsersPage } from "./pages/UsersPage";
+import { BeerRowColImpESP } from "./components/importations/BeerRowColImpESP";
+import { BeerRowColImpGER } from "./components/importations/BeerRowColImpGER";
+import { BeerRowColImpBELG } from "./components/importations/BeerRowColImpBELG";
+import { BeerRowColImpREST } from "./components/importations/BeerRowColImpREST";
 
 
 const initialLogin= JSON.parse(sessionStorage.getItem('login')) || {
@@ -142,7 +146,20 @@ export const BeerApp = () => {
                     <Route path="products" element={
                         <BeerRowCol beerTypes={beerTypes} handlerDeleteBeerTypes={handlerDeleteBeerTypes} handlerAddProductCart={handlerAddProductCart} />
                     } />
-    
+                    
+                    <Route path="esp" element={
+                        <BeerRowColImpESP beerTypes={beerTypes} handlerDeleteBeerTypes={handlerDeleteBeerTypes} handlerAddProductCart={handlerAddProductCart} />
+                    } />
+                     <Route path="ger" element={
+                        <BeerRowColImpGER beerTypes={beerTypes} handlerDeleteBeerTypes={handlerDeleteBeerTypes} handlerAddProductCart={handlerAddProductCart} />
+                    } />
+                     <Route path="belg" element={
+                        <BeerRowColImpBELG beerTypes={beerTypes} handlerDeleteBeerTypes={handlerDeleteBeerTypes} handlerAddProductCart={handlerAddProductCart} />
+                    } />
+                     <Route path="rest" element={
+                        <BeerRowColImpREST beerTypes={beerTypes} handlerDeleteBeerTypes={handlerDeleteBeerTypes} handlerAddProductCart={handlerAddProductCart} />
+                    } />
+
                     <Route path="cart" element={
     
                         cartItems.length === 0? <div className="alert alert-warning my-4 mx-2 w-50">No hay productos en el carrito</div>:
