@@ -44,6 +44,8 @@ export const BeerCard = ({ id, beerName, alcoholGrade, type, price,quality, impo
         }
     };
 
+    
+
     return (
         <>
             <div className="card rounded-card">

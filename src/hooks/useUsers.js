@@ -6,6 +6,7 @@ import {
     usersReducer
 } from "../reducers/usersReducer"
 import Swal from "sweetalert2"
+import { findAll, remove, save, update } from "../services/UserService"
 
 const initialUsers = JSON.parse(sessionStorage.getItem('form'))||[]
 const initialUserForm = {
@@ -20,20 +21,39 @@ export const useUsers = () => {
 
     const [users, dispatch] = useReducer(usersReducer, initialUsers)
     const [userSelected, setUserSelected] = useState(initialUserForm);
-    const [visibleForm, setVisibleForm] = useState(false)
+    const [visibleForm, setVisibleForm] = useState(false);
 
-    const handlerAddUser = (user) => {
+    const getUsers=async()=>{
+
+        const result = await findAll();
+        console.log(result);
+        dispatch({
+            type: 'loadingUsers',
+            payload: result.data
+        })
+
+    }
+
+    const handlerAddUser = async(user) => {
 
         let type;
+        let response;
+
+        if(user.id===0){
+            response = await save(user);
+        }else{
+            response = await update(user);
+        }
 
         if (user.id === 0) {
             type = 'addUser';
         } else {
             type = 'updateUser'
         }
+
         dispatch({
             type: type,
-            payload: user,
+            payload: response.data,
         })
 
         Swal.fire(
@@ -58,6 +78,7 @@ export const useUsers = () => {
                 confirmButtonText: "Yes, delete it!"
             }).then((result) => {
                 if (result.isConfirmed) {
+                    remove(id)
                     dispatch({
                         type: 'removeUser',
                         payload: id,
@@ -99,6 +120,7 @@ export const useUsers = () => {
         handlerRemoveUser,
         handlerUserSelectedForm,
         handlerOpenForm,
-        handlerCloseForm
+        handlerCloseForm,
+        getUsers
     }
 }

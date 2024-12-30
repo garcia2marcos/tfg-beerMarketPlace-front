@@ -1,17 +1,17 @@
 
 import { useEffect, useState } from "react";
-import { impMyBeer } from "./services/BeerService"
+import { findById, impMyBeer, remove, save, update } from "./services/BeerService"
 import { BeerRowCol } from "./components/BeerRowCol";
 import { NewForm } from "./components/NewForm";
 import { Navigate, Route, Routes } from "react-router-dom"
 import { Navbar } from "./components/Navbar";
 import { useItemsCart } from "./hooks/useItemsCart";
 import { CartView } from "./components/CartView";
-import { loginReducer } from "../src/auth/pages/reducers/loginReducer"
+import { loginReducer } from "./reducers/loginReducer"
 import { useReducer } from "react"
-import {LoginPage} from "../src/auth/pages/LoginPage"
+import {LoginPage} from "../src/components/LoginPage"
 import Swal from "sweetalert2";
-import { loginUser } from "./auth/pages/services/AuthService";
+import { loginUser } from "./services/authService";
 import { UsersPage } from "./pages/UsersPage";
 import { BeerRowColImpESP } from "./components/importations/BeerRowColImpESP";
 import { BeerRowColImpGER } from "./components/importations/BeerRowColImpGER";
@@ -29,22 +29,29 @@ export const BeerApp = () => {
 
     const { cartItems, handlerAddProductCart, handlerDeleteProductCart } = useItemsCart();
     const [beerTypes, setBeerTypes] = useState([]);
+    const [isLoading,setIsLoading]= useState(true);
+
+    const findAll= async()=>{
+        const myData = await impMyBeer();
+        setBeerTypes(myData.myBeer);
+        setIsLoading(false);
+
+    }
     
 
     useEffect(() => {
-        const myData = impMyBeer();
-        setBeerTypes(myData.myBeer);
-
+       findAll();
+        
     }, [])
 
-    const [myCounter, setMyCounter] = useState(9)   
+    const [myCounter, setMyCounter] = useState(0)   
 
-    const handlerAddBeerTypes = ({ beerName, alcoholGrade, type, price, importation, description, image,quality}) => {
-
+    const handlerAddBeerTypes = async ({
+        beerName, alcoholGrade, type, price, importation, description, image, quality,
+    }) => {
         const imageUrl = URL.createObjectURL(image);
-
-        setBeerTypes([...beerTypes, {
-            id: myCounter,
+    
+        const newBeer = {
             beerName: beerName.trim(),
             alcoholGrade: +alcoholGrade.trim(),
             type: type.trim(),
@@ -52,17 +59,32 @@ export const BeerApp = () => {
             quality: +quality.trim(),
             importation: importation.trim(),
             description: description.trim(),
-            image: imageUrl,
-
-        }]);
-
-        setMyCounter(myCounter + 1);
+            imagePath: imageUrl,
+        };
     
+        let response;
 
-    }
+        if (myCounter === 0) {
+            response = await save(newBeer);
+        } else {
+            response = await update({ id: myCounter, ...newBeer });
+        }
+    
+        if (response) {
+            setBeerTypes([...beerTypes, { id: myCounter, ...newBeer }]);
+            setMyCounter(myCounter + 1);
+        } else {
+            console.error("Error adding beer");
+        }
+    };
 
 
     const handlerDeleteBeerTypes = (id) => {
+        if (!id) {
+            console.error("No ID provided for deletion");
+            return;
+        }
+    
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -70,19 +92,21 @@ export const BeerApp = () => {
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
-          }).then((result) => {
+            confirmButtonText: "Yes, delete it!",
+        }).then((result) => {
             if (result.isConfirmed) {
-                setBeerTypes(beerTypes.filter(beer => beer.id !== id))
-              Swal.fire({
-                title: "Deleted!",
-                text: "Your file has been deleted.",
-                icon: "success"
-              });
+                remove(id).then((response) => {
+                    if (response) {
+                        setBeerTypes(beerTypes.filter((beer) => beer.id !== id));
+                        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+                    } else {
+                        console.error("Error deleting beer");
+                    }
+                });
             }
-          });
+        });
 
-    }
+    };
 
 
     
@@ -132,6 +156,10 @@ export const BeerApp = () => {
 
     return (
     <>
+
+    {
+        isLoading &&<div className="alert alert-info">Cargando...</div>
+    }
         {login.isAuth ?
         
         <>

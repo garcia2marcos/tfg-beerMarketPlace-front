@@ -1,6 +1,7 @@
 import { useUsers } from "../hooks/useUsers"
 import { UsersList } from "../components/UserList"
 import { UserModalForm } from "../components/UserModalForm"
+import { useEffect } from "react";
 
 
 export const UsersPage = () => {
@@ -16,8 +17,14 @@ export const UsersPage = () => {
         handlerRemoveUser,
         handlerUserSelectedForm,
         handlerOpenForm,
-        handlerCloseForm
+        handlerCloseForm,
+        getUsers
     } = useUsers();
+
+    useEffect(()=>{
+        getUsers();
+
+    },[]);
 
 
     return (

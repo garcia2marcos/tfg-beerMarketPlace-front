@@ -1,6 +1,6 @@
 import { LogInUserForm } from "./LogInForm";
 
-export const UserModalForm = ({ userSelected, initialUserForm, handlerAddUser, handlerCloseForm }) => {
+export const UserModalForm = ({ userSelected, initialUserForm, handlerAddUser, handlerCloseForm,handlerVisibleLogin }) => {
 
 
     return (
@@ -10,6 +10,7 @@ export const UserModalForm = ({ userSelected, initialUserForm, handlerAddUser, h
             userSelected={userSelected}
             initialUserForm={initialUserForm}
             handlerCloseForm={handlerCloseForm}
+            handlerVisibleLogin={handlerVisibleLogin}
         />
 
 

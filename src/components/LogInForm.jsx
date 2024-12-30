@@ -4,7 +4,7 @@ import image from '../images/beershopLogo.png'
 import Swal from "sweetalert2";
 
 
-export const LogInUserForm = ({ userSelected, handlerAddUser, initialUserForm, handlerCloseForm }) => {
+export const LogInUserForm = ({ userSelected, handlerAddUser, initialUserForm, handlerCloseForm,handlerVisibleLogin }) => {
 
     const [userForm, setUserForm] = useState(initialUserForm);
 
@@ -88,7 +88,8 @@ export const LogInUserForm = ({ userSelected, handlerAddUser, initialUserForm, h
                         value={id}
                     />
                     <button
-                        type="submit">
+                        type="submit"
+                        onClick={handlerVisibleLogin}>
                         {id > 0 ? 'Editar' : 'Register'}
                     </button>
 
