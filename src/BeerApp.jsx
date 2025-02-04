@@ -4,19 +4,18 @@ import { findById, impMyBeer, remove, save, update } from "./services/BeerServic
 import { BeerRowCol } from "./components/BeerRowCol";
 import { NewForm } from "./components/NewForm";
 import { Navigate, Route, Routes } from "react-router-dom"
-import { Navbar } from "./components/Navbar";
+import Navbar from "./components/Navbar";
 import { useItemsCart } from "./hooks/useItemsCart";
 import { CartView } from "./components/CartView";
 import { loginReducer } from "./reducers/loginReducer"
 import { useReducer } from "react"
 import {LoginPage} from "../src/components/LoginPage"
 import Swal from "sweetalert2";
-import { loginUser } from "./services/authService";
+import { loginUser, verifyLogIn } from "./services/authService";
 import { UsersPage } from "./pages/UsersPage";
-import { BeerRowColImpESP } from "./components/importations/BeerRowColImpESP";
-import { BeerRowColImpGER } from "./components/importations/BeerRowColImpGER";
-import { BeerRowColImpBELG } from "./components/importations/BeerRowColImpBELG";
-import { BeerRowColImpREST } from "./components/importations/BeerRowColImpREST";
+import { ProductPage } from "./components/ProductBeerPage";
+import { BeerByCountry } from "./components/BeerByCountry";
+import { BeerByFamily } from "./components/BeerByFamily";
 
 
 const initialLogin= JSON.parse(sessionStorage.getItem('login')) || {
@@ -47,7 +46,24 @@ export const BeerApp = () => {
     const [myCounter, setMyCounter] = useState(0)   
 
     const handlerAddBeerTypes = async ({
-        beerName, alcoholGrade, type, price, importation, description, image, quality,
+        beerName, 
+        alcoholGrade, 
+        type, price, 
+        quality, 
+        importation, 
+        description, 
+        image, 
+        origin,
+        family,
+        style,
+        substyle,
+        ingredients,
+        allergens,
+        category,
+        color,
+        tone,
+        format,
+        model
     }) => {
         const imageUrl = URL.createObjectURL(image);
     
@@ -60,6 +76,16 @@ export const BeerApp = () => {
             importation: importation.trim(),
             description: description.trim(),
             imagePath: imageUrl,
+            family: family.trim(),
+            style: style.trim(),
+            substyle: substyle.trim(),
+            ingredients: ingredients.trim(),
+            allergens: allergens.trim(),
+            category: category.trim(),
+            color: color.trim(),
+            tone: tone.trim(),
+            format: format.trim(),
+            model: model.trim()
         };
     
         let response;
@@ -80,6 +106,8 @@ export const BeerApp = () => {
 
 
     const handlerDeleteBeerTypes = (id) => {
+
+        console.log('id en handler ='+ id)
         if (!id) {
             console.error("No ID provided for deletion");
             return;
@@ -113,33 +141,55 @@ export const BeerApp = () => {
 
 
     const [login,dispatch] = useReducer(loginReducer, initialLogin)
-    const handlerLogin =({username,password})=>{
-        const isLogin =loginUser({username,password})
- 
-     if(isLogin){
- 
-         const user={username}
- 
-         dispatch({
-             type: 'login',
-             payload: user,
-         })  
-         sessionStorage.setItem('login', JSON.stringify({
+    const handlerLogin = async ({ username, password = null }) => {
+        console.log(`Logging in with user: ${username}`);
+      
+        if (!password) {
+          // Caso de Google Login
+          const user = { username };
+      
+          dispatch({
+            type: 'login',
+            payload: user,
+          });
+          sessionStorage.setItem('login', JSON.stringify({
             isAuth: true,
-            user
-         }))  
-         Swal.fire({
+            user,
+          }));
+          Swal.fire({
+            position: "top-center",
+            icon: "success",
+            title: `Successfully logged in as ${username}`,
+            showConfirmButton: false,
+            timer: 700,
+          });
+          return;
+        }
+      
+        // Caso normal (usuario y contraseña)
+        const isLogin = await verifyLogIn({ username, password });
+        if (isLogin) {
+          const user = { username };
+      
+          dispatch({
+            type: 'login',
+            payload: user,
+          });
+          sessionStorage.setItem('login', JSON.stringify({
+            isAuth: true,
+            user,
+          }));
+          Swal.fire({
             position: "top-center",
             icon: "success",
             title: "Successfully logged in",
             showConfirmButton: false,
-            timer: 700
+            timer: 700,
           });
-     }else{
-         Swal.fire('Error','Username y password no validos','error')
-     }
- 
-    }
+        } else {
+          Swal.fire("Error", "Invalid username or password", "error");
+        }
+      };
 
     const handlerLogOut =()=>{
 
@@ -163,7 +213,7 @@ export const BeerApp = () => {
         {login.isAuth ?
         
         <>
-        <Navbar handlerLogOut={handlerLogOut} login={login}/>
+        <Navbar handlerLogOut={handlerLogOut} login={login} cartCount={cartItems.length}/>
             <div className="container">
                 <Routes>
     
@@ -174,19 +224,18 @@ export const BeerApp = () => {
                     <Route path="products" element={
                         <BeerRowCol beerTypes={beerTypes} handlerDeleteBeerTypes={handlerDeleteBeerTypes} handlerAddProductCart={handlerAddProductCart} />
                     } />
+
+                    <Route path="/product/:id" element ={
+                        <ProductPage handlerDeleteBeerTypes={handlerDeleteBeerTypes} handlerAddProductCart={handlerAddProductCart}/>
+                    }/>
                     
-                    <Route path="esp" element={
-                        <BeerRowColImpESP beerTypes={beerTypes} handlerDeleteBeerTypes={handlerDeleteBeerTypes} handlerAddProductCart={handlerAddProductCart} />
-                    } />
-                     <Route path="ger" element={
-                        <BeerRowColImpGER beerTypes={beerTypes} handlerDeleteBeerTypes={handlerDeleteBeerTypes} handlerAddProductCart={handlerAddProductCart} />
-                    } />
-                     <Route path="belg" element={
-                        <BeerRowColImpBELG beerTypes={beerTypes} handlerDeleteBeerTypes={handlerDeleteBeerTypes} handlerAddProductCart={handlerAddProductCart} />
-                    } />
-                     <Route path="rest" element={
-                        <BeerRowColImpREST beerTypes={beerTypes} handlerDeleteBeerTypes={handlerDeleteBeerTypes} handlerAddProductCart={handlerAddProductCart} />
-                    } />
+                    <Route path="/esp" element={<BeerByCountry country="España" handlerDeleteBeerTypes={handlerDeleteBeerTypes} handlerAddProductCart={handlerAddProductCart}/>} />
+                    <Route path="/bel" element={<BeerByCountry country="Bélgica" handlerDeleteBeerTypes={handlerDeleteBeerTypes} handlerAddProductCart={handlerAddProductCart}/>} />
+                    <Route path="/ger" element={<BeerByCountry country="Alemania" handlerDeleteBeerTypes={handlerDeleteBeerTypes} handlerAddProductCart={handlerAddProductCart}/>} />
+                    <Route path="/jpn" element={<BeerByCountry country="Japón" handlerDeleteBeerTypes={handlerDeleteBeerTypes} handlerAddProductCart={handlerAddProductCart}/>} />
+                    <Route path="/scot" element={<BeerByCountry country="Escocia" handlerDeleteBeerTypes={handlerDeleteBeerTypes} handlerAddProductCart={handlerAddProductCart}/>} />
+                    <Route path="/noalcohol" element={<BeerByFamily family="SinAlcohol" handlerDeleteBeerTypes={handlerDeleteBeerTypes} handlerAddProductCart={handlerAddProductCart}/>} />
+                    <Route path="/nogluten" element={<BeerByFamily family="SinGluten" handlerDeleteBeerTypes={handlerDeleteBeerTypes} handlerAddProductCart={handlerAddProductCart}/>} />
 
                     <Route path="cart" element={
     

@@ -24,7 +24,7 @@ export const BeerCard = ({ id, beerName, alcoholGrade, type, price,quality, impo
     const addProduct = (product) => {
         console.log(product)
         handlerAddProductCart(product)
-        navigate('/cart')
+        //navigate('/cart')
         Swal.fire({
             title: "Beer add to shopping cart!",
             text: "Beer added to shopping cart!",
@@ -49,38 +49,44 @@ export const BeerCard = ({ id, beerName, alcoholGrade, type, price,quality, impo
     return (
         <>
             <div className="card rounded-card">
-                <img className='rounded-card' src={image} />
+                <img className="rounded-card" onClick={() => navigate(`/product/${id}`)} src={image} />
                 <div className="card-body">
-                    <h4 className="card-title">{beerName}</h4>
-                    {//<p className="card-text">Importacion: {importation}</p>
-                        //<p className="card-text">Grados de alcohol: {alcoholGrade}%</p>
-                        //<p className="card-text">Tipo de cerveza: {type}</p>
-                    }<div className="rating-container">
-                        {[...Array(5)].map((_, index) => (
-                            <span
-                                key={index}
-                                className={`star ${index < rating ? 'rated' : ''}`}
-                                onClick={() => handleStarClick(index)}
-                            >
-                                &#9733;
-                            </span>
-                        ))}
-
+                    <div className="text-center">
+                        <h4 className="card-title">{beerName}</h4>
+                        <div className="rating-container" style={{ marginBottom: '10px' }}>
+                            {[...Array(5)].map((_, index) => (
+                                <span
+                                    key={index}
+                                    className={`star ${index < rating ? 'rated' : ''}`}
+                                    onClick={() => handleStarClick(index)}
+                                >
+                                    &#9733;
+                                </span>
+                            ))}
+                        </div>
                     </div>
+
                     <div className="product-counter">
                         <button className="counter-button" onClick={decrement}>-</button>
                         <span className="count-display">{quantity}</span>
                         <button className="counter-button" onClick={increment}>+</button>
                     </div>
-
-                    <div className="d-flex justify-content-between align-items-center border-0" >
-                        <button className="btn btn-outline-primary mb-2 rounded-pill " onClick={() => addProduct({ id, beerName, description, price,quantity,image })}>Buy just for: {price}€ </button>
-                        <button className="btn btn-outline-secondary mb-2 rounded-pill" onClick={() => handlerDeleteBeerTypes(id)}>Delete item</button>
-
-                    </div>
-
+                    <div className="d-flex justify-content-center">
+                    <button className="btn btn-outline-primary rounded-pill" onClick={() => addProduct({ id, beerName, description, price, quantity, image })}>
+                        Buy just for: {price}€
+                    </button>
                 </div>
-                
+
+                    {/* Contenedor para centrar el botón 
+                    <div className="d-flex justify-content-between align-items-center border-0">
+                        <button className="btn btn-outline-primary mb-2 rounded-pill" onClick={() => addProduct({ id, beerName, description, price, quantity, image })}>
+                            Buy just for: {price}€
+                        </button>
+                        <button className="btn btn-outline-secondary mb-2 rounded-pill" onClick={() => handlerDeleteBeerTypes(id)}>
+                            Delete item
+                        </button>
+                    </div>*/}
+                </div>
             </div>
         </>
     )

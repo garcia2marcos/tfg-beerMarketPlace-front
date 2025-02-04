@@ -13,6 +13,7 @@
 
 .navbar {
     border: 2px solid rgba(0, 21, 249, 0.507); /* Ajusta el grosor del borde según tus preferencias */
+    
 }
 
 .card {
@@ -26,17 +27,32 @@
     justify-content: center;
     font-size: 1rem;
   }
+
+  .boton-pago {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+  }
   
   .counter-button {
     padding: 10px 20px;
     font-size: 1.8rem;
     cursor: pointer;
     border: none;
-    background-color: #ffffff;
+    background-color: #ffffff00;
     color: rgb(2, 2, 2);
     border-radius: 15px;
     margin: 0 10px;
   }
+
+  .counter-button:hover {
+    color: #007BFF; /* Cambia el color al pasar el cursor */
+}
+
+.counter-button:active {
+    transform: scale(0.95); /* Efecto de "presionar" */
+}
   
   .count-display {
     padding: 10px 20px;
@@ -56,3 +72,36 @@
   .star.rated {
     color: #216ce7;
   }
+
+  .rating-container {
+    display: flex;
+    gap: 4px;  /* Espacio entre las estrellas */
+    margin-bottom: 10px;  /* Ajusta este valor para controlar la distancia entre las estrellas y el contador */
+}
+
+.star {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.rating-container {
+  display: inline-block; /* Para que ocupe solo el espacio necesario */
+}
+/*.card {
+  margin-top: 70px; /* O ajusta el valor para ver si resuelve el problema */
+/*}
+
+.navbar {
+  position: fixed; /* Fija el navbar en la parte superior */
+ /* top: 0; /* Lo coloca en la parte superior de la ventana */
+ /* left: 0; /* Lo alinea al borde izquierdo */
+ /* width: 100%; /* Ocupa todo el ancho de la página */
+  /*z-index: 1000; /* Asegúrate de que esté encima de otros elementos */
+/*}
+
+
+

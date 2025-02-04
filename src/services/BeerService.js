@@ -40,7 +40,7 @@ export const update = async ({ id, ...beerData }) => {
 };
 
 export const remove = async(id)=>{
-    console.log("removing data:",);
+    console.log('el id en remove = '+ id)
     try {
         return await axios.delete(`${'http://localhost:8080/beers'}/${id}`);
     } catch (error) {
@@ -51,14 +51,15 @@ export const remove = async(id)=>{
 
 }
 
-export const findById = async(id)=>{
+export const findById = async (id) => {
     try {
-        return await axios.get(`${'http://localhost:8080/beers'}/${id}`);
+      const response = await axios.get(`http://localhost:8080/beers/${id}`);
+      return response.data; // Devuelve los datos del producto
     } catch (error) {
-
-        console.log(error);
-        
+      console.error('Error fetching product:', error);
+      throw error; // Propaga el error
     }
+  
 
 }
 
