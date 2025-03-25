@@ -7,9 +7,7 @@ export const Navbar = ({ login, handlerLogOut, cartCount }) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-orange">
       <div className="container-fluid">
-        <a className="navbar-brand" href="/">
-          <img src={image} alt="Logo" width="40" height="40" />
-        </a>
+        <a className="navbar-brand" href="/"><img src={image} alt="Logo" width="40" height="40" /></a>
         <button
           className="navbar-toggler"
           type="button"
@@ -23,55 +21,18 @@ export const Navbar = ({ login, handlerLogOut, cartCount }) => {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <NavLink className={"nav-link"} to="/">
-                Top-Sellers
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className={"nav-link"} to="/form">
-                Add Product
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className={"nav-link"} to="/esp">
-                Spain
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className={"nav-link"} to="/bel">
-                Belgium
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className={"nav-link"} to="/ger">
-                Germany
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className={"nav-link"} to="/jpn">
-                Japan
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className={"nav-link"} to="/scot">
-                Scotland
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className={"nav-link"} to="/noalcohol">
-                Non-Alcohol
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className={"nav-link"} to="/nogluten">
-                Non-Gluten
-              </NavLink>
-            </li>
+            <li className="nav-item"><NavLink className={"nav-link"} to="/">Top-Sellers</NavLink></li>
+            <li className="nav-item"><NavLink className={"nav-link"} to="/form">Add Product</NavLink></li>
+            <li className="nav-item"><NavLink className={"nav-link"} to="/esp">Spain</NavLink></li>
+            <li className="nav-item"><NavLink className={"nav-link"} to="/bel">Belgium</NavLink></li>
+            <li className="nav-item"><NavLink className={"nav-link"} to="/ger">Germany</NavLink></li>
+            <li className="nav-item"><NavLink className={"nav-link"} to="/jpn">Japan</NavLink></li>
+            <li className="nav-item"><NavLink className={"nav-link"} to="/scot">Scotland</NavLink></li>
+            <li className="nav-item"><NavLink className={"nav-link"} to="/noalcohol">Non-Alcohol</NavLink></li>
+            <li className="nav-item"><NavLink className={"nav-link"} to="/nogluten">Non-Gluten</NavLink></li>
           </ul>
         </div>
         <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
-
         <div className="nav-item">
             <NavLink className={"nav-link"} to="/cart">
               <FaShoppingCart size={20} />
@@ -87,7 +48,6 @@ export const Navbar = ({ login, handlerLogOut, cartCount }) => {
           >
             Logout
           </button>
-         
         </div>
       </div>
     </nav>

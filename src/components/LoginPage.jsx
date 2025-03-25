@@ -109,20 +109,8 @@ export const LoginPage = ({ handlerLogin }) => {
               <img className={styles.logo} src={image} alt="Logo" />
               <h4>Welcome!</h4>
               <form className={styles.form} onSubmit={onSubmit}>
-                <input
-                  placeholder="Username"
-                  type="text"
-                  name="username"
-                  value={username}
-                  onChange={onInputChange}
-                />
-                <input
-                  placeholder="Password"
-                  type="password"
-                  name="password"
-                  value={password}
-                  onChange={onInputChange}
-                />
+                <input placeholder="Username" type="text" name="username" value={username} onChange={onInputChange}/>
+                <input placeholder="Password" type="password" name="password" value={password} onChange={onInputChange} />
                 <button>Sign in</button>
               </form>
               <div className="my-3">

@@ -215,8 +215,8 @@ export const BeerApp = () => {
         <>
         <Navbar handlerLogOut={handlerLogOut} login={login} cartCount={cartItems.length}/>
             <div className="container">
+
                 <Routes>
-    
                     <Route path="form" element={
                         <NewForm handler={handlerAddBeerTypes} />
                     } />
@@ -247,11 +247,9 @@ export const BeerApp = () => {
                     <Route path="login" element={
                         <UsersPage/>
                     } />
-    
-    
                     <Route path="/" element={<Navigate to={'/products'} />} />
-    
                 </Routes>
+                
             </div>
             </>
     

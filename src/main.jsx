@@ -1,7 +1,7 @@
 import React from 'react'
-import ReactDOM from 'react-dom/client'
 import { BeerApp } from './BeerApp'
 import { BrowserRouter } from 'react-router-dom'
+import ReactDOM from 'react-dom/client'
 
 
 
